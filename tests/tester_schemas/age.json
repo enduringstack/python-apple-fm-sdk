@@ -1,0 +1,15 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "months": {
+      "type": "integer"
+    },
+    "years": {
+      "type": "integer"
+    }
+  },
+  "required": ["years", "months"],
+  "title": "Age",
+  "type": "object",
+  "x-order": ["years", "months"]
+}

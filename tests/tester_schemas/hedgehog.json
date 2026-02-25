@@ -1,0 +1,52 @@
+{
+  "$defs": {
+    "Age": {
+      "additionalProperties": false,
+      "properties": {
+        "months": {
+          "type": "integer"
+        },
+        "years": {
+          "type": "integer"
+        }
+      },
+      "required": ["years", "months"],
+      "title": "Age",
+      "type": "object",
+      "x-order": ["years", "months"]
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "age": {
+      "$ref": "#/$defs/Age",
+      "description": "The hedgehog's age, at most 8 years."
+    },
+    "favoriteFood": {
+      "description": "The hedgehog's favorite food",
+      "enum": ["carrot", "turnip", "leek"],
+      "type": "string"
+    },
+    "hobbies": {
+      "description": "The hedgehog's hobbies",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 3,
+      "minItems": 3,
+      "type": "array"
+    },
+    "home": {
+      "enum": ["a hedge"],
+      "type": "string"
+    },
+    "name": {
+      "description": "A cute old-timey name",
+      "type": "string"
+    }
+  },
+  "required": ["name", "age", "favoriteFood", "home", "hobbies"],
+  "title": "Hedgehog",
+  "type": "object",
+  "x-order": ["name", "age", "favoriteFood", "home", "hobbies"]
+}

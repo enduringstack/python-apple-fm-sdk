@@ -1,0 +1,27 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "age": {
+      "description": "The person's age",
+      "maximum": 100,
+      "minimum": 18,
+      "type": "integer"
+    },
+    "children": {
+      "description": "The person's children",
+      "items": {
+        "$ref": "#"
+      },
+      "maxItems": 3,
+      "type": "array"
+    },
+    "name": {
+      "description": "The person's name",
+      "type": "string"
+    }
+  },
+  "required": ["children", "name"],
+  "title": "Person",
+  "type": "object",
+  "x-order": ["age", "children", "name"]
+}

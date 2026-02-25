@@ -1,0 +1,137 @@
+{
+  "$defs": {
+    "Age": {
+      "additionalProperties": false,
+      "properties": {
+        "months": {
+          "type": "integer"
+        },
+        "years": {
+          "type": "integer"
+        }
+      },
+      "required": ["years", "months"],
+      "title": "Age",
+      "type": "object",
+      "x-order": ["years", "months"]
+    },
+    "Cat": {
+      "additionalProperties": false,
+      "description": "Basic profile information about a cat",
+      "properties": {
+        "age": {
+          "$ref": "#/$defs/Age",
+          "description": "The age of the cat, at most 20 years"
+        },
+        "name": {
+          "type": "string"
+        },
+        "profile": {
+          "description": "One sentence about this cat's personality",
+          "type": "string"
+        }
+      },
+      "required": ["name", "age", "profile"],
+      "title": "Cat",
+      "type": "object",
+      "x-order": ["name", "age", "profile"]
+    },
+    "Hedgehog": {
+      "additionalProperties": false,
+      "properties": {
+        "age": {
+          "$ref": "#/$defs/Age",
+          "description": "The hedgehog's age, at most 8 years."
+        },
+        "favoriteFood": {
+          "description": "The hedgehog's favorite food",
+          "enum": ["carrot", "turnip", "leek"],
+          "type": "string"
+        },
+        "hobbies": {
+          "description": "The hedgehog's hobbies",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 3,
+          "minItems": 3,
+          "type": "array"
+        },
+        "home": {
+          "enum": ["a hedge"],
+          "type": "string"
+        },
+        "name": {
+          "description": "A cute old-timey name",
+          "type": "string"
+        }
+      },
+      "required": ["name", "age", "favoriteFood", "home", "hobbies"],
+      "title": "Hedgehog",
+      "type": "object",
+      "x-order": ["name", "age", "favoriteFood", "home", "hobbies"]
+    },
+    "Person": {
+      "additionalProperties": false,
+      "properties": {
+        "age": {
+          "description": "The person's age",
+          "maximum": 100,
+          "minimum": 18,
+          "type": "integer"
+        },
+        "children": {
+          "description": "The person's children",
+          "items": {
+            "$ref": "#/$defs/Person"
+          },
+          "maxItems": 10,
+          "type": "array"
+        },
+        "name": {
+          "description": "The person's name",
+          "type": "string"
+        }
+      },
+      "required": ["children", "name"],
+      "title": "Person",
+      "type": "object",
+      "x-order": ["age", "children", "name"]
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "cats": {
+      "items": {
+        "$ref": "#/$defs/Cat"
+      },
+      "type": "array"
+    },
+    "hedgehogs": {
+      "items": {
+        "$ref": "#/$defs/Hedgehog"
+      },
+      "type": "array"
+    },
+    "members": {
+      "items": {
+        "$ref": "#/$defs/Person"
+      },
+      "type": "array"
+    },
+    "otherPets": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "presidentName": {
+      "description": "Should be the name of one of the members",
+      "type": "string"
+    }
+  },
+  "required": ["members", "cats", "hedgehogs", "otherPets", "presidentName"],
+  "title": "PetClub",
+  "type": "object",
+  "x-order": ["members", "cats", "hedgehogs", "otherPets", "presidentName"]
+}

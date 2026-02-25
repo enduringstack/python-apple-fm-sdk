@@ -1,0 +1,19 @@
+# For licensing see accompanying LICENSE file.
+# Copyright (C) 2026 Apple Inc. All Rights Reserved.
+
+# Sphinx documentation requirements
+# 
+# Note: These dependencies are also defined in pyproject.toml under [dependency-groups.docs]
+# This file is maintained for compatibility with tools that don't support pyproject.toml dependency groups.
+# 
+# To install using uv (recommended):
+#   uv sync --group docs
+# 
+# To install using pip:
+#   pip install -r requirements.txt
+
+sphinx>=7.0.0
+sphinx-book-theme>=1.0.0
+sphinx-autodoc-typehints>=1.25.0
+sphinx-copybutton>=0.5.2
+myst-parser>=2.0.0

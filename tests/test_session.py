@@ -1,0 +1,147 @@
+# For licensing see accompanying LICENSE file.
+# Copyright (C) 2026 Apple Inc. All Rights Reserved.
+
+"""
+Tests for LanguageModelSession functionality.
+"""
+
+
+def test_import_session():
+    """Test that we can import LanguageModelSession and related classes."""
+    print("\n=== Testing LanguageModelSession imports ===")
+
+    import apple_fm_sdk  # noqa: F401 expected unused import
+
+    print("✓ Successfully imported apple_fm_sdk")
+
+    from apple_fm_sdk import (
+        LanguageModelSession,  # noqa: F401 expected unused import
+        FoundationModelsError,  # noqa: F401 expected unused import
+        GenerationError,  # noqa: F401 expected unused import
+        ExceededContextWindowSizeError,  # noqa: F401 expected unused import
+        GuardrailViolationError,  # noqa: F401 expected unused import
+    )
+
+    print("✓ Successfully imported LanguageModelSession and error classes")
+
+
+def test_is_responding(model):
+    """Test the is_responding property."""
+    print("\n=== Testing is_responding property ===")
+
+    import apple_fm_sdk as fm
+
+    # Create a session
+    session = fm.LanguageModelSession("You are a helpful assistant.", model=model)
+
+    # Initially should not be responding
+    initial_responding = session.is_responding
+    print(f"✓ Initial is_responding: {initial_responding}")
+
+    # Property should be accessible (boolean type)
+    assert isinstance(initial_responding, bool), (
+        f"is_responding should be bool, got {type(initial_responding)}"
+    )
+    print("✓ is_responding property returns boolean")
+
+
+def test_session_initialization_options(model):
+    """Test initializing LanguageModelSession with different options."""
+    print("\n=== Testing LanguageModelSession initialization options ===")
+
+    import apple_fm_sdk as fm
+
+    # Test 1: Session with no parameters (all defaults)
+    print("\n1. Testing session with no parameters...")
+    session1 = fm.LanguageModelSession()
+    assert session1 is not None
+    print("✓ Created session with no parameters")
+
+    # Test 2: Session with instructions only
+    print("\n2. Testing session with instructions only...")
+    instructions = "You are a helpful assistant that provides concise answers."
+    session2 = fm.LanguageModelSession(instructions=instructions)
+    assert session2 is not None
+    print("✓ Created session with instructions")
+
+    # Test 3: Session with custom model only
+    print("\n3. Testing session with custom model...")
+    session3 = fm.LanguageModelSession(model=model)
+    assert session3 is not None
+    print("✓ Created session with custom model")
+
+    # Test 4: Session with instructions and model
+    print("\n4. Testing session with instructions and model...")
+    session4 = fm.LanguageModelSession(
+        instructions="You are a creative writer.", model=model
+    )
+    assert session4 is not None
+    print("✓ Created session with instructions and model")
+
+    # Test 5: Session with different model use cases
+    print("\n5. Testing session with different model use cases...")
+
+    # General use case
+    model_general = fm.SystemLanguageModel(
+        use_case=fm.SystemLanguageModelUseCase.GENERAL
+    )
+    session5a = fm.LanguageModelSession(model=model_general)
+    assert session5a is not None
+    print("✓ Created session with GENERAL use case model")
+
+    # Content tagging use case
+    model_tagging = fm.SystemLanguageModel(
+        use_case=fm.SystemLanguageModelUseCase.CONTENT_TAGGING
+    )
+    session5b = fm.LanguageModelSession(model=model_tagging)
+    assert session5b is not None
+    print("✓ Created session with CONTENT_TAGGING use case model")
+
+    # Test 6: Session with different guardrails
+    print("\n6. Testing session with different guardrails...")
+
+    # Default guardrails
+    model_default = fm.SystemLanguageModel(
+        guardrails=fm.SystemLanguageModelGuardrails.DEFAULT
+    )
+    session6a = fm.LanguageModelSession(model=model_default)
+    assert session6a is not None
+    print("✓ Created session with DEFAULT guardrails")
+
+    # Permissive content transformations
+    model_permissive_ct = fm.SystemLanguageModel(
+        guardrails=fm.SystemLanguageModelGuardrails.PERMISSIVE_CONTENT_TRANSFORMATIONS
+    )
+    session6b = fm.LanguageModelSession(model=model_permissive_ct)
+    assert session6b is not None
+    print("✓ Created session with PERMISSIVE_CONTENT_TRANSFORMATIONS guardrails")
+
+    # Test 8: Session with empty instructions
+    print("\n8. Testing session with empty instructions...")
+    session8 = fm.LanguageModelSession(instructions="", model=model)
+    assert session8 is not None
+    print("✓ Created session with empty instructions")
+
+    # Test 9: Session with None instructions (explicit)
+    print("\n9. Testing session with None instructions...")
+    session9 = fm.LanguageModelSession(instructions=None, model=model)
+    assert session9 is not None
+    print("✓ Created session with None instructions")
+
+    # Test 10: Session with tools (empty list)
+    print("\n10. Testing session with empty tools list...")
+    session10 = fm.LanguageModelSession(
+        instructions="You are a helpful assistant.", model=model, tools=[]
+    )
+    assert session10 is not None
+    print("✓ Created session with empty tools list")
+
+    # Test 11: Session with None tools (explicit)
+    print("\n11. Testing session with None tools...")
+    session11 = fm.LanguageModelSession(
+        instructions="You are a helpful assistant.", model=model, tools=None
+    )
+    assert session11 is not None
+    print("✓ Created session with None tools")
+
+    print("\n✓ All session initialization tests passed!")
